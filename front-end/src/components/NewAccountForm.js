@@ -13,15 +13,15 @@ const Forms = ({ values, errors, touched, status, valid }) => {
   return (
     <>
       <Form>
-        <label htmlFor='fname'>
-          <Field type='text' name='fname' placeholder='First Name' valid={touched.name && !errors.name} />
+        <label htmlFor='name'>
+          <Field type='text' name='name' placeholder='First Name' valid={touched.name && !errors.name} />
         </label>
-        {touched.fname && errors.fname && (<p className='errors'>{errors.fname}</p>)}
+        {touched.name && errors.name && (<p className='errors'>{errors.name}</p>)}
 
-        <label htmlFor='lname'>
-          <Field type='text' name='lname' placeholder='Last Name' valid={touched.name && !errors.name} />
+        <label htmlFor='username'>
+          <Field type='text' name='username' placeholder='Last Name' valid={touched.name && !errors.name} />
         </label>
-        {touched.lname && errors.lname && (<p className='errors'>{errors.lname}</p>)}
+        {touched.username && errors.username && (<p className='errors'>{errors.username}</p>)}
 
         <label htmlFor='email'>
           <Field type='email' name='email' placeholder='Email' />
@@ -42,8 +42,8 @@ const Forms = ({ values, errors, touched, status, valid }) => {
       </Form>
       {user.map(newUser => (
         <ul key={newUser.id}>
-          <li>First Name: {newUser.fname}</li>
-          <li>Last Name: {newUser.lname}</li>
+          <li>First Name: {newUser.name}</li>
+          <li>Last Name: {newUser.username}</li>
           <li>Email: {newUser.email}</li>
           <li>Password: {newUser.password}</li>
         </ul>
@@ -52,20 +52,20 @@ const Forms = ({ values, errors, touched, status, valid }) => {
   )
 }
 const FormikUserForm = withFormik({
-  mapPropsToValues({ fname, lname, email, password, tos }) {
+  mapPropsToValues({ name, username, email, password, tos }) {
     return {
-      fname: fname || '',
-      lname: lname || '',
+      name: name || '',
+      username: username || '',
       email: email || '',
       password: password || '',
       tos: tos || false,
     };
   },
   validationSchema: Yup.object().shape({
-    fname: Yup.string()
+    name: Yup.string()
       .required('FiName is a required field!')
       .min(2, 'Too Short! Must be at least 2 characters'),
-    lname: Yup.string()
+    username: Yup.string()
       .required('Name is a required field!')
       .min(2, 'Too Short! Must be at least 2 characters'),
     email: Yup.string()
@@ -78,7 +78,7 @@ const FormikUserForm = withFormik({
       .oneOf([true], 'Terms of Service is a required field!')
   }),
   handleSubmit(values, { setStatus }) {
-    axios.post('https://reqres.in/api/users', values)
+    axios.post('', values)
       .then(response => {
         setStatus(response.data);
         console.log(response)
