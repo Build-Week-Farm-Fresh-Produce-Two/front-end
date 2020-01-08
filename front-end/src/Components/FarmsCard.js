@@ -2,12 +2,12 @@
 
 import React from "react";
 
-const Farms = () => {
+const Farms = (props) => {
     return (
         <div>
-            <h1>{title}</h1>
-            
-
+            <h1>Name: {props.name}</h1>
+            <p>Location: </p>
+            <p>Ratings: </p>
         </div>
     )
 }

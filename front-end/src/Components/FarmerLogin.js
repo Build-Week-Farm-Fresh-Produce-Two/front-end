@@ -1,13 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import {Redirect} from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-const SigninForm = ({ errors, touched }) => {
+const SigninForm = ({ props, error, touched, status }) => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    status && setUsers([...users, status]);
+    if (status !== undefined) {
+      props.history.push("/FarmPage");
+    }
+    console.log(users)
+    if (localStorage.getItem("token")) {
+      return <Redirect to="/FarmPage" />;
+    }
+  }, [status])
+
   return (
     <Form>
       <div>
-        {touched.email && error.email && <p>{error.emial}</p>}
+        {touched.email && error.email && <p>{error.email}</p>}
         <Field type="email" name="email" placeholder="Email Address" />
       </div>
       <div>
@@ -39,10 +53,11 @@ const FormikSigninForm = withFormik({
   handleSubmit(values, { setStatus, resetForm }) {
     console.log("submiting", values);
     axios
-      .post("", values)
+      .post("https://bestfarm.herokuapp.com/api/users/login", values)
       .then(res => {
         console.log("success", res);
         setStatus(res.data);
+        localStorage.setItem("user-token", res.data.token);
         resetForm();
       })
       .catch(err => console.log(err.res));
