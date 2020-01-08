@@ -1,3 +1,6 @@
+//CHANGE THIS PAGE TO BE THE FARM DASHBOARD
+
+
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../Utils/axiosWithAuth";
 
@@ -8,7 +11,7 @@ const FarmPage = () => {
     const [farmList, setFarmList] = useState([]);
 
     useEffect(() => {
-        axiosWithAuth().get("")
+        axiosWithAuth().get("https://bestfarm.herokuapp.com/farms")
             .then(res => {
                 setFarmList(res.data)
             })
@@ -17,7 +20,7 @@ const FarmPage = () => {
 
     return (
         <>
-
+            
         </>
     )
 }

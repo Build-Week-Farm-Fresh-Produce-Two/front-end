@@ -1,10 +1,12 @@
-import React from "react";
+//THIS PAGE IS GOING TO BE THE FARM CARD DISPLAY
 
-// this is where i need to pull data from api and return data
+import React from "react";
 
 const Farms = () => {
     return (
         <div>
+            <h1>{title}</h1>
+            
 
         </div>
     )
