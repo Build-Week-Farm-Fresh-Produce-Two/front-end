@@ -1,4 +1,5 @@
-//show list of farms to choose from with descriptions
+//THIS PAGE SHOWS FARMS IN LOCAL AREA WITH FARM INFORMATION
+
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import Farms from './FarmsCard';
@@ -20,7 +21,7 @@ useEffect(() => {
     return (
         <div>
             {list.map(i => (
-                <Farms key={i.id} name={i.name} />
+                <Farms key={i.id} name={i.name} produce={i.produce}/>
             ))}
         </div>
     )

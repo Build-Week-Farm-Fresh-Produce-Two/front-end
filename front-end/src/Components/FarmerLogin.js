@@ -10,11 +10,11 @@ const SigninForm = ({ props, error, touched, status }) => {
   useEffect(() => {
     status && setUsers([...users, status]);
     if (status !== undefined) {
-      props.history.push("/FarmPage");
+      props.history.push("/FarmProfile");
     }
     console.log(users)
     if (localStorage.getItem("token")) {
-      return <Redirect to="/FarmPage" />;
+      return <Redirect to="/FarmProfile" />;
     }
   }, [status])
 
