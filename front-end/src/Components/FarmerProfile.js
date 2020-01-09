@@ -8,7 +8,3 @@ import {ADD_ITEM, DELETE_ITEM, EDIT_ITEM}  from "../actions";
 const FarmerProfile= () => {
     return (
         <div></div>
-    )
-}
-
-export default FarmerProfile;
