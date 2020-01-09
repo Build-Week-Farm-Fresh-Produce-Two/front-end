@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
 import PrivateRoute from './Utils/PrivateRoute';
-import FormikSigninForm from './Components/FarmerLogin';
+
 import FarmerProfile from './Components/FarmerProfile';
 
 
