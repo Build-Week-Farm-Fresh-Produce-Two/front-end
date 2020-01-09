@@ -1,8 +1,11 @@
+
 import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
+
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+
 
 // const history = useHistory();
   // const newFunc = () => {
@@ -23,6 +26,7 @@ const SigninForm = ({touched, errors}) => {
         <Field type="text" name="username" placeholder="Username" />
       </div>
       <div>
+
         <Field type="password" name="password" placeholder="Password" />
         {touched.password && errors.password && 
                 <p className="errors">{errors.password}</p>
@@ -43,6 +47,7 @@ const FormikSigninForm = withFormik({
   },
 
   validationSchema: Yup.object().shape({
+
     password: Yup.string()
       .min(7, "Password must be 6 characters or longer")
       .required("Password is required")
@@ -60,6 +65,7 @@ const FormikSigninForm = withFormik({
       })
       .catch(error => 
         console.log('Login catch error: ', error));
+
   }
 })(SigninForm);
 

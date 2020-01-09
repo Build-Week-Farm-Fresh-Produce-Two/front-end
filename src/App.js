@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -9,9 +10,14 @@ import FarmerProfile from './Components/FarmerProfile';
 
 
 
+import "./App.css";
+// import FarmPage from './Components/FarmPage';
+import FormikSigninForm from "./Components/FarmerLogin";
+
 function App() {
   
   return (
+
     <Router>
       <div className="App">
         <Switch>
@@ -21,6 +27,8 @@ function App() {
       </div>
     </Router>
     
+
+
   );
 }
 
