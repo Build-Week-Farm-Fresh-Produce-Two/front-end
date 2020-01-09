@@ -1,20 +1,18 @@
-//FARMER LOG IN AND ADD AVAILABLE OPTIONS FOR PURCHASE FROM FARM
-//EDIT AND DELETE ITEMS FROM INVENTORY
-//SEE ORDERS TO PREPARE FOR PICKUP
 
 import React, {useEffect, useState} from 'react';
 import { axiosWithAuth } from '../Utils/axiosWithAuth';
 
-import SupplyList from './FarmItems';
+import FarmItems from './FarmItems';
 
 
 const FarmerProfile= () => {
-    const [supplyList, setSupplyList] = useState([]);
+    const [supplyList, setSupplyList] = useState('');
 
     useEffect(() => {
         axiosWithAuth()
-            .get("api/supply/")
+            .get("api/supply/farm/")
             .then(response => {
+                console.log(response.data)
                 setSupplyList(response.data);
             })
             .catch(error => console.log('error: ', error.response.data.message));
@@ -22,7 +20,12 @@ const FarmerProfile= () => {
 
     return (
         <div>
-        <SupplyList supplys={supplyList} updateSupply={setSupplyList} />
+            {(()=>{
+                if (supplyList){
+                    return <FarmItems supplys={supplyList} updateSupply={setSupplyList}/>
+                }
+            })()}
+            {/* {supplyList && return <SupplyList supplys={supplyList} updateSupply={setSupplyList}/>} */}
         </div>
     )
 }

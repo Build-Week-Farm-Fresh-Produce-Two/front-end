@@ -7,7 +7,7 @@ const initialSupply = {
     supplys: "",
 };
 
-const SupplyList = ({supply, updateSupply}) => {
+const FarmItems = ({supply, updateSupply}) => {
     console.log(supply);
     const [editing, setEditing] = useState(false);
     const [supplyToEdit, setSupplyToEdit] = useState(initialSupply);
@@ -25,14 +25,14 @@ const SupplyList = ({supply, updateSupply}) => {
             console.log(response.data.message);
         })
         .catch(error => {
-        console.log('string to label what axios call went wrong, error: ', error.response.data.message)
+        console.log('error: ', error.response.data.message)
         })
     }
 
     const saveEdit = e => {
         e.preventDefault();
         axiosWithAuth()
-        .put(`api/supply/${supplyToEdit.id}`, supplyToEdit)
+        .post(`api/supply/${supplyToEdit.id}`, supplyToEdit)
         .then(response => {
             const newSupply = supply.map(item => {
             if (item.id === supplyToEdit.id) {
@@ -47,7 +47,7 @@ const SupplyList = ({supply, updateSupply}) => {
             console.log(response.data)
         })
         .catch(error => {
-            console.log('string to label what axios call went wrong, error: ', error.response.data.message)
+            console.log('error: ', error.response.data.message)
         })
     };
 
@@ -61,7 +61,7 @@ const SupplyList = ({supply, updateSupply}) => {
             console.log("supply in deleteSupply: ", response.data.message)
         })
         .catch(error => {
-            console.log('string to label what axios call went wrong, error: ', error.response.data.message)
+            console.log('error: ', error.response.data.message)
         })
     };
 
@@ -108,4 +108,4 @@ const SupplyList = ({supply, updateSupply}) => {
 
 
 
-export default SupplyList;
+export default FarmItems;
