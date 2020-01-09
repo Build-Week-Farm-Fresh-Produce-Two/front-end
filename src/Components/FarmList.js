@@ -8,7 +8,7 @@ const FarmList = () => {
 const [list, setList] = useState([]);
 
 useEffect(() => {
-    axios.get("./farms")
+    axios.get("/farms")
     .then(res => {
         setList(res.data);
         console.log(res)
