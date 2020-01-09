@@ -1,6 +1,7 @@
 //build out actions here I need edit and delete 
 export const ADD_ITEM = "ADD_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
+export const EDIT_ITEM = "EDIT_ITEM";
 
 
 
@@ -17,3 +18,10 @@ export const deleteItem = item => {
         payload:item
     }
 };
+
+export const editItem = item => {
+    return {
+        type: EDIT_ITEM,
+        payload: item
+    }
+}
