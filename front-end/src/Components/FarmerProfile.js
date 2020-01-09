@@ -2,12 +2,28 @@
 //EDIT AND DELETE ITEMS FROM INVENTORY
 //SEE ORDERS TO PREPARE FOR PICKUP
 
-import React from 'react';
-import {ADD_ITEM, DELETE_ITEM, EDIT_ITEM}  from "../actions";
+import React, {useEffect, useState} from 'react';
+import { axiosWithAuth } from '../Utils/axiosWithAuth';
+
+import SupplyList from './FarmItems';
+
 
 const FarmerProfile= () => {
+    const [supplyList, setSupplyList] = useState([]);
+
+    useEffect(() => {
+        axiosWithAuth()
+            .get("api/supply/")
+            .then(response => {
+                setSupplyList(response.data);
+            })
+            .catch(error => console.log('error: ', error.response.data.message));
+        }, []);
+
     return (
-        <div></div>
+        <div>
+        <SupplyList supplys={supplyList} updateSupply={setSupplyList} />
+        </div>
     )
 }
 

@@ -1,50 +1,46 @@
-import React, {useState, useEffect} from "react";
-import {Redirect} from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-const SigninForm = ({ props, error, touched, status }) => {
-  const [users, setUsers] = useState([]);
+// const history = useHistory();
+  // const newFunc = () => {
+  //   const history = useHistory();
+  //   history.push("/FarmerProfile");
+  // }
 
-  useEffect(() => {
-    status && setUsers([...users, status]);
-    if (status !== undefined) {
-      props.history.push("/FarmProfile");
-    }
-    console.log(users)
-    if (localStorage.getItem("token")) {
-      return <Redirect to="/FarmProfile" />;
-    }
-  }, [status])
-
+const SigninForm = ({touched, errors}) => {
+  let history = useHistory();
+  if(localStorage.getItem('token')){
+    history.push('/');
+  }
   return (
     <Form>
       <div>
-        {touched.email && error.email && <p>{error.email}</p>}
-        <Field type="email" name="email" placeholder="Email Address" />
+        <Field type="text" name="username" placeholder="Username" />
       </div>
       <div>
-        {touched.password && error.password && <p>{error.password}</p>}
         <Field type="password" name="password" placeholder="Password" />
+        {touched.password && errors.password && 
+                <p className="errors">{errors.password}</p>
+            }
       </div>
-      <button>Sign In</button>
+      <button type="submit">Sign In</button>
     </Form>
   );
 };
 
+
 const FormikSigninForm = withFormik({
-  mapPropsToValues({ email, password }) {
+  mapPropsToValues({ username, password }) {
     return {
-      email: email || "",
+      username: username || "",
       password: password || ""
     };
   },
 
   validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email("Email not valid")
-      .required("Email is required"),
     password: Yup.string()
       .min(7, "Password must be 6 characters or longer")
       .required("Password is required")
@@ -53,15 +49,19 @@ const FormikSigninForm = withFormik({
   handleSubmit(values, { setStatus, resetForm }) {
     console.log("submiting", values);
     axios
-      .post("https://bestfarm.herokuapp.com/api/users/login", values)
-      .then(res => {
-        console.log("success", res);
-        setStatus(res.data);
-        localStorage.setItem("user-token", res.data.token);
+      .post("https://bestfarm.herokuapp.com/api/auth/login", values)
+      .then(response => {
+        console.log("success", response.data);
+        setStatus(response.data);
+        localStorage.setItem("token", response.data);
         resetForm();
       })
-      .catch(err => console.log(err.res));
+      .catch(error => 
+        console.log('Login catch error: ', error));
   }
 })(SigninForm);
+
+  
+
 
 export default FormikSigninForm;
