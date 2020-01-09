@@ -1,16 +1,15 @@
-import React from 'react';
+import React from "react";
 
-
-import './App.css';
-import FarmPage from './Components/FarmPage';
-import FormikSigninForm from './Components/FarmerLogin';
-
+import "./App.css";
+// import FarmPage from './Components/FarmPage';
+import FormikSigninForm from "./Components/FarmerLogin";
 
 function App() {
   return (
     <div className="App">
-      <FormikSigninForm/>
-      <FarmPage/>
+      <FormikSigninForm />
+
+      {/* <FarmPage /> */}
     </div>
   );
 }
