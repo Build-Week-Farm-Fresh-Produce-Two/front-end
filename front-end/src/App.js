@@ -1,14 +1,13 @@
-import React from 'react';
-
-import './App.css';
-import FarmPage from './Components/FarmPage';
-import FormikSigninForm from './Components/FarmerLogin';
+import React from "react";
+import sytled from "styled-components";
+import "./App.css";
+import FarmPage from "./Components/FarmPage";
+import FormikSigninForm from "./Components/FarmerLogin";
 
 function App() {
   return (
     <div className="App">
-      <FormikSigninForm/>
-      <FarmPage/>
+      <FormikSigninForm />
     </div>
   );
 }
