@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+}
+
+.home h1{
+  color: black;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: rgb(31, 42, 76);
+  padding-bottom: 1%;
+  margin-bottom: 2%;
+  
+}
+
+.header h2 {
+  display: flex;
+  justify-content: flex-start;
+  color: white;
+  width: 60%;
+  margin-left: 1%;
+}
+.header-nav {
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 10%;
+  width: 20%;
+}
+
+.link {
+  color: white;
+}
+
+.inventory-card {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 1%;
+}
+
+.produce-img{
+  width: 20%;
+  
+}
