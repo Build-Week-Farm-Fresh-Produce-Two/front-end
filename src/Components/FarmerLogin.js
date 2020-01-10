@@ -1,5 +1,5 @@
 
-import React, {useEffect} from "react";
+import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 
 import { withFormik, Form, Field } from "formik";
@@ -14,12 +14,9 @@ import axios from "axios";
   // }
 
 const SigninForm = ({touched, errors}) => {
-  let history = useHistory();
-  useEffect(() => {
-    if(localStorage.getItem('token')){
-      history.push('/FarmerProfile');
-    }
-  }, [localStorage.getItem('token')])
+  // const history = useHistory()
+  // const [credentials, setCredentials] = useState({})
+
   return (
     <Form>
       <div>

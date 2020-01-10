@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { MainForm, Input, CheckContainer, InputForm } from './Theme.js';
+
 
 const Forms = ({ values, errors, touched, status, valid }) => {
   const [user, setUser] = useState([]);

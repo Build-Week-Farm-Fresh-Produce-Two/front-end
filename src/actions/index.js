@@ -3,6 +3,7 @@ import {axiosWithAuth} from '../Utils/axiosWithAuth';
 //build out actions here I need edit and delete 
 export const LOADING_SUPPLYS = "LOADING_SUPPLYS";
 export const SUPPLYS_LOADED = "SUPPLYS_LOADED";
+export const LOGGED_IN = "LOGGED_IN";
 export const ADD_ITEM = "ADD_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const EDIT_ITEM = "EDIT_ITEM";
@@ -21,6 +22,23 @@ export const fetchSupplys = () => dispatch => {
         })
 }
 
+export const sendLogin = (credentials, history) => dispatch => {
+    if(credentials.username === '' || credentials.password === '') {
+        alert("username and/or password may not be blank")
+    } else {
+        axiosWithAuth()
+            .post("api/login", credentials)
+            .then(response => {
+                console.log('login successful:', response);
+                localStorage.setItem('token', response.data.message);
+                dispatch({ type: LOGGED_IN, payload: response.data.user.id});
+                history.push("/FarmerProfile")
+            })
+            .catch(error => {
+                console.log('error: ', error.response.data.message)
+            })
+    }
+}
 
 export const addSupply = ( supplyID, history) => dispatch => {
     axiosWithAuth()

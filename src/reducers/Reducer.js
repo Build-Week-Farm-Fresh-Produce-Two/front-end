@@ -1,8 +1,11 @@
-import { ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../actions/index";
+import { LOADING_SUPPLYS, SUPPLYS_LOADED, LOGGED_IN, ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../actions/index";
 
 const initialState = {
     supplyId: '',
-    supply: []
+    supply: [],
+    mySupplys: [],
+    dataLoading:false,
+    error: ''
     
 };
 
@@ -10,23 +13,48 @@ const reducer = ( state = initialState, action ) => {
     console.log(action,state);
 
     switch(action.type) {
+        case  LOADING_SUPPLYS:
+            return {
+                ...state,
+                dataLoading: true,
+                error: ''
+            }
+        case SUPPLYS_LOADED:
+            return {
+                ...state,
+                supply: action.payload,
+                dataLoading: false,
+                error: ''
+            }
+        case LOGGED_IN:
+            return {
+                ...state,
+                supplyID: action.payload,
+                mySupplys: state.supply.filter(supplys => supplys.supplyId === action.payload),
+                error: ''
+            }
+
         case ADD_ITEM: 
             return{
                 ...state,
-                supplyId: action.payload,
-                supply: [...state.supply]
+                supply: [...state.supply, action.payload],
+                mySupplys: [...state.mySupplys, action.payload],
+                error: ''
             };
 
         case DELETE_ITEM: 
             return {
                 ...state,
-                supply: state.supply.filter(supply => supply.supplyId !== action.payload)
+                supply: state.supply.filter(supplys => supplys.supplyId !== action.payload),
+                mySupplys: [],
+                error: ''
             }
 
         case EDIT_ITEM:
             return {
-                ...state,
-                supply: state.supply.map(supply => supply.id ===action.payload.id ? action.payload : supply)
+                mySupplys: [action.payload],
+                supply: state.supply.map(supplys => supplys.id === action.payload.id ? action.payload : supplys),
+                error: ''
             }
 
         default:
