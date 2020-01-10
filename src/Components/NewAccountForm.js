@@ -12,29 +12,37 @@ const Forms = ({ values, errors, touched, status, valid }) => {
 
   return (
     <>
-      <Form>
+    <h1>Create New Account</h1>
+      <Form className="signup">
+      <label htmlFor='farmid'>
+          <Field className="input" type='text' name='farmID' placeholder='Farm ID' />
+        </label>
         <label htmlFor='name'>
-          <Field type='text' name='name' placeholder='First Name' valid={touched.name && !errors.name} />
+          <Field className="input" type='text' name='name' placeholder='First Name' valid={touched.name && !errors.name} />
         </label>
         {touched.name && errors.name && (<p className='errors'>{errors.name}</p>)}
 
         <label htmlFor='username'>
-          <Field type='text' name='username' placeholder='Last Name' valid={touched.name && !errors.name} />
+          <Field className="input" type='text' name='username' placeholder='Username' valid={touched.username && !errors.username} />
         </label>
         {touched.username && errors.username && (<p className='errors'>{errors.username}</p>)}
 
         <label htmlFor='email'>
-          <Field type='email' name='email' placeholder='Email' />
+          <Field className="input" type='email' name='email' placeholder='Email' />
         </label>
         {touched.email && errors.email && (<p className='errors'>{errors.email}</p>)}
 
         <label htmlFor='password'>
-          <Field type='text' name='password' placeholder='Password' />
+          <Field className="input" type='text' name='password' placeholder='Password' />
         </label>
         {touched.password && errors.password && (<p className='errors'>{errors.password}</p>)}
 
-        <label>Agree to Terms
-          <Field type='checkbox' name='tos' checked={values.tos} />
+        <label htmlFor='zipcode'>
+          <Field className="input" type='text' name='zipCode' placeholder='ZipCode' />
+        </label>
+
+        <label>Are You a Farmer?
+          <Field className="checkbox" type='checkbox' name='tos' checked={values.tos} />
         </label>
         {touched.tos && errors.tos && (<p className='errors'>{errors.tos}</p>)}
 
@@ -42,10 +50,12 @@ const Forms = ({ values, errors, touched, status, valid }) => {
       </Form>
       {user.map(newUser => (
         <ul key={newUser.id}>
+          <li>Farm ID: {newUser.farmID}</li>
           <li>First Name: {newUser.name}</li>
-          <li>Last Name: {newUser.username}</li>
+          <li>UserName: {newUser.username}</li>
           <li>Email: {newUser.email}</li>
           <li>Password: {newUser.password}</li>
+          <li>ZipCode: {newUser.zipCode}</li>
         </ul>
       ))}
     </>
@@ -74,14 +84,15 @@ const FormikUserForm = withFormik({
     password: Yup.string()
       .required('Password is a required field!')
       .min(8, 'Too Short! Must be at least 8 characters'),
-    tos: Yup.bool()
-      .oneOf([true], 'Terms of Service is a required field!')
+    // tos: Yup.bool()
+    //   .oneOf([true], 'Terms of Service is a required field!')
   }),
-  handleSubmit(values, { setStatus }) {
+  handleSubmit(values, { setStatus, resetForm }) {
     axios.post('', values)
       .then(response => {
         setStatus(response.data);
         console.log(response)
+        resetForm()
       })
       .catch(error => console.log(error.response))
   }

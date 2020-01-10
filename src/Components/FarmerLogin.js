@@ -11,13 +11,14 @@ import axios from "axios";
 const SigninForm = ({touched, errors}) => {
 
   return (
-    <Form>
+    <Form className="signup">
+      <h1>Login</h1>
       <div>
-        <Field type="text" name="username" placeholder="Username" />
+        <Field className="input" type="text" name="username" placeholder="Username" />
       </div>
       <div>
 
-        <Field type="password" name="password" placeholder="Password" />
+        <Field className="input" type="password" name="password" placeholder="Password" />
         {touched.password && errors.password && 
                 <p className="errors">{errors.password}</p>
             }

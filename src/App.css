@@ -44,5 +44,27 @@
 
 .produce-img{
   width: 20%;
-  
+}
+
+.signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 3%;
+}
+
+.signup button {
+  width: 200px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: rgb(31, 42, 76);
+  color: white;
+  margin-left: 45%;
+  margin-top: 1%;
+}
+
+.input {
+  margin: 5px;
+  width: 250px;
+  height: 30px;
 }
