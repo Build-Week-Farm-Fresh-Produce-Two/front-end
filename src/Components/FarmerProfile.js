@@ -1,33 +1,20 @@
 
-import React, {useEffect, useState} from 'react';
-import { axiosWithAuth } from '../Utils/axiosWithAuth';
-
-import FarmItems from './FarmItems';
+import React from 'react';
+import Inventory from './Inventory';
 
 
-const FarmerProfile= () => {
-    const [supplyList, setSupplyList] = useState('');
+class FarmerProfile extends React.Component {
 
-    useEffect(() => {
-        axiosWithAuth()
-            .get("api/supply/")
-            .then(response => {
-                console.log(response)
-                setSupplyList(response);
-            })
-            .catch(error => console.log('error: ', error));
-        }, []);
-
-    return (
-        <div>
-            {(()=>{
-                if (supplyList){
-                    return <FarmItems supplys={supplyList} updateSupply={setSupplyList}/>
-                }
-            })()}
-            {/* {supplyList && return <SupplyList supplys={supplyList} updateSupply={setSupplyList}/>} */}
-        </div>
-    )
+    render() { 
+        return ( 
+            <div>
+                <h1>Your Farm Produce</h1>
+                <Inventory key="item"/>
+            </div>
+            );
+    }
 }
 
 export default FarmerProfile;
+
+

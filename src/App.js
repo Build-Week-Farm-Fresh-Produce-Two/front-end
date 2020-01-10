@@ -8,6 +8,7 @@ import PrivateRoute from './Utils/PrivateRoute';
 import FormikSigninForm from "./Components/FarmerLogin";
 import FormikUserForm from "./Components/NewAccountForm";
 import FarmerProfile from './Components/FarmerProfile';
+import Home from './Components/Home';
 import "./App.css";
 import Header from './Components/Header';
 
@@ -25,6 +26,7 @@ function App() {
     <Router>
       <div className="App">
         <Header />
+          <Route path="/Home" component={Home} />
           <Route exact path="/" component={FormikSigninForm} />
           <Route path="/NewAccountForm" component={FormikUserForm}/>
           <PrivateRoute exact path="/FarmerProfile" component={FarmerProfile} />
