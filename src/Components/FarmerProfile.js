@@ -10,12 +10,12 @@ const FarmerProfile= () => {
 
     useEffect(() => {
         axiosWithAuth()
-            .get("api/supply/farm/")
+            .get("api/supply/")
             .then(response => {
-                console.log(response.data)
-                setSupplyList(response.data);
+                console.log(response)
+                setSupplyList(response);
             })
-            .catch(error => console.log('error: ', error.response.data.message));
+            .catch(error => console.log('error: ', error));
         }, []);
 
     return (

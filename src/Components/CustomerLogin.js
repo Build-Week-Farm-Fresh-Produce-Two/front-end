@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
-// import styled from "styled-components";
+import styled from "styled-components";
 import axios from "axios";
 
 // const history = useHistory();
@@ -20,13 +20,13 @@ const UsernameDiv = styled.div`
   margin-bottom: 3%;
 `;
 
-const SigninForm = ({ touched, errors }) => {
-  // let history = useHistory();
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     history.push("/FarmerProfile");
-  //   }
-  // }, [localStorage.getItem("token")]);
+const CustomerLogin = ({ touched, errors }) => {
+  let history = useHistory();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      history.push("/FarmerProfile");
+    }
+  }, [localStorage.getItem("token")]);
   return (
     <WrapperDiv>
       <Form>
@@ -46,7 +46,7 @@ const SigninForm = ({ touched, errors }) => {
   );
 };
 
-const FormikSigninForm = withFormik({
+const FormikCustomerLogin = withFormik({
   mapPropsToValues({ username, password }) {
     return {
       username: username || "",

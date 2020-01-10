@@ -1,18 +1,18 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import {connect} from 'react'
 import './App.css';
 
 import PrivateRoute from './Utils/PrivateRoute';
-
+import FormikSigninForm from "./Components/FarmerLogin";
 import FarmerProfile from './Components/FarmerProfile';
 
 
 
 import "./App.css";
 
-import FormikSigninForm from "./Components/FarmerLogin";
+
 
 function App() {
   

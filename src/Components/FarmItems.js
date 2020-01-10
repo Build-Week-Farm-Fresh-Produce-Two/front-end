@@ -1,69 +1,9 @@
-import React, { useState } from "react";
-import {axiosWithAuth} from "../Utils/axiosWithAuth";
+import React from "react";
 
 
 
-const initialSupply = {
-    supplys: "",
-};
-
-const FarmItems = ({supply, updateSupply}) => {
+const FarmItems = supply => {
     console.log(supply);
-    const [editing, setEditing] = useState(false);
-    const [supplyToEdit, setSupplyToEdit] = useState(initialSupply);
-
-    const editSupply = supplys => {
-    setEditing(true);
-    setSupplyToEdit(supplys);
-    };
-
-    const refresh= () => {
-    axiosWithAuth()
-        .get("api/supply/")
-        .then(response => {
-            updateSupply(response.data)
-            console.log(response.data.message);
-        })
-        .catch(error => {
-        console.log('error: ', error.response.data.message)
-        })
-    }
-
-    const saveEdit = e => {
-        e.preventDefault();
-        axiosWithAuth()
-        .post(`api/supply/${supplyToEdit.id}`, supplyToEdit)
-        .then(response => {
-            const newSupply = supply.map(item => {
-            if (item.id === supplyToEdit.id) {
-                return supplyToEdit;
-            } else {
-                return item;
-            }
-            })
-            updateSupply(newSupply);
-            setEditing(false);
-            setSupplyToEdit({initialSupply});
-            console.log(response.data)
-        })
-        .catch(error => {
-            console.log('error: ', error.response.data.message)
-        })
-    };
-
-    const deleteSupply = supplys=> {
-        axiosWithAuth()
-        .delete(`api/supply/${supplys.id}`)
-        .then(response => {
-            setSupplyToEdit(initialSupply);
-            setEditing(false);
-            refresh();
-            console.log("supply in deleteSupply: ", response.data.message)
-        })
-        .catch(error => {
-            console.log('error: ', error.response.data.message)
-        })
-    };
 
     return (
         <div>
