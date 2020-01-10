@@ -12,18 +12,18 @@ const SigninForm = ({touched, errors}) => {
 
   return (
     <Form className="signup">
+        <div className="signup-img">
+            <img width="50%" src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="crop field"/>
+        </div>
+      <div className="form1">
       <h1>Login</h1>
-      <div>
         <Field className="input" type="text" name="username" placeholder="Username" />
-      </div>
-      <div>
-
         <Field className="input" type="password" name="password" placeholder="Password" />
         {touched.password && errors.password && 
                 <p className="errors">{errors.password}</p>
             }
-      </div>
       <button type="submit">Sign In</button>
+      </div>
     </Form>
   );
 };

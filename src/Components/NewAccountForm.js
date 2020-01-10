@@ -12,8 +12,12 @@ const Forms = ({ values, errors, touched, status, valid }) => {
 
   return (
     <>
-    <h1>Create New Account</h1>
-      <Form className="signup">
+    <Form className="signup">
+      <div className="signup-img">
+          <img width="50%" src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" alt="crop field"/>
+      </div>
+      <div className="form">
+        <h1>Create New Account</h1>
       <label htmlFor='farmid'>
           <Field className="input" type='text' name='farmID' placeholder='Farm ID' />
         </label>
@@ -47,6 +51,7 @@ const Forms = ({ values, errors, touched, status, valid }) => {
         {touched.tos && errors.tos && (<p className='errors'>{errors.tos}</p>)}
 
         <button type='submit'>Submit!</button>
+      </div>
       </Form>
       {user.map(newUser => (
         <ul key={newUser.id}>
