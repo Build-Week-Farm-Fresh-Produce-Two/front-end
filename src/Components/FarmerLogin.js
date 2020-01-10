@@ -1,25 +1,20 @@
 
-import React, {useEffect} from "react";
-import { useHistory } from "react-router-dom";
-
+import React from "react";
+// import { useHistory } from "react-router-dom";
+import {Link} from 'react-router-dom';
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
 
-// const history = useHistory();
-  // const newFunc = () => {
-  //   const history = useHistory();
-  //   history.push("/FarmerProfile");
-  // }
+const newLink = () => {
+  return (
+    <Link to="/FarmerProfile" />
+  )
+}
 
 const SigninForm = ({touched, errors}) => {
-  let history = useHistory();
-  useEffect(() => {
-    if(localStorage.getItem('token')){
-      history.push('/FarmerProfile');
-    }
-  }, [localStorage.getItem('token')])
+
   return (
     <Form>
       <div>
@@ -53,7 +48,7 @@ const FormikSigninForm = withFormik({
       .required("Password is required")
   }),
 
-  handleSubmit(values, { setStatus, resetForm }) {
+  handleSubmit(values, { setStatus, resetForm}) {
     console.log("submiting", values);
     axios
       .post("https://bestfarm.herokuapp.com/api/auth/login", values)
@@ -63,6 +58,9 @@ const FormikSigninForm = withFormik({
         localStorage.setItem("token", response.data.token);
         resetForm();
       })
+      .then(
+        newLink()
+      )
       .catch(error => 
         console.log('Login catch error: ', error));
 
