@@ -1,53 +1,63 @@
-import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 // import styled from "styled-components";
 import axios from "axios";
 
-const CustomerLogin = ({ props, errors, status }) => {
-  const [users, setUsers] = useState([]);
+// const history = useHistory();
+// const newFunc = () => {
+//   const history = useHistory();
+//   history.push("/FarmerProfile");
+// }
 
-  useEffect(() => {
-    status && setUsers([...users, status]);
-    if (status !== undefined) {
-      props.history.push("/CustomerProfile");
-    }
-    console.log(users);
-    if (localStorage.getItem("token")) {
-      return <Redirect to="/CustomerProfile" />;
-    }
-  }, [status]);
+const WrapperDiv = styled.div`
+  background-color: lightblue;
+  margin-top: 10%;
+`;
+const UsernameDiv = styled.div`
+  margin-bottom: 3%;
+`;
 
+const SigninForm = ({ touched, errors }) => {
+  // let history = useHistory();
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     history.push("/FarmerProfile");
+  //   }
+  // }, [localStorage.getItem("token")]);
   return (
-    <Form>
-      <div>
-        {errors.email && <p>{errors.email}</p>}
-        <Field type="email" name="email" placeholder="Email Address" />
-      </div>
-      <div>
-        {errors.password && <p>{errors.password}</p>}
-        <Field type="password" name="password" placeholder="Password" />
-      </div>
-      <button type="submit">Sign In</button>
-    </Form>
+    <WrapperDiv>
+      <Form>
+        <h1>Sign in to account</h1>
+        <UsernameDiv>
+          <Field type="text" name="username" placeholder="Username" />
+        </UsernameDiv>
+        <div>
+          <Field type="password" name="password" placeholder="Password" />
+          {touched.password && errors.password && (
+            <p className="errors">{errors.password}</p>
+          )}
+        </div>
+        <button type="submit">Sign In</button>
+      </Form>
+    </WrapperDiv>
   );
 };
 
-const FormikCustomerLogin = withFormik({
-  mapPropsToValues({ email, password }) {
+const FormikSigninForm = withFormik({
+  mapPropsToValues({ username, password }) {
     return {
-      email: email || "",
+      username: username || "",
       password: password || ""
     };
   },
 
   validationSchema: Yup.object().shape({
-    email: Yup.string()
-      .email("Email not valid")
-      .required("Email is required"),
     password: Yup.string()
-      .min(6, "Password must be 6 characters or longer")
+      .min(7, "Password must be 6 characters or longer")
+      .max(16, "password is too long ")
       .required("Password is required")
   }),
 
@@ -55,13 +65,13 @@ const FormikCustomerLogin = withFormik({
     console.log("submiting", values);
     axios
       .post("https://bestfarm.herokuapp.com/api/auth/login", values)
-      .then(res => {
-        console.log("success", res);
-        setStatus(res.data);
-        localStorage.setItem("user-token", res.data.token);
+      .then(response => {
+        console.log("success", response.data);
+        setStatus(response.data);
+        localStorage.setItem("token", response.data.token);
         resetForm();
       })
-      .catch(err => console.log("Login catch error", err));
+      .catch(error => console.log("Login catch error: ", error));
   }
 })(CustomerLogin);
 
