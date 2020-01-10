@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
+// import styled from "styled-components";
 import axios from "axios";
 
 // const history = useHistory();
@@ -72,6 +73,6 @@ const FormikSigninForm = withFormik({
       })
       .catch(error => console.log("Login catch error: ", error));
   }
-})(SigninForm);
+})(CustomerLogin);
 
-export default FormikSigninForm;
+export default FormikCustomerLogin;
