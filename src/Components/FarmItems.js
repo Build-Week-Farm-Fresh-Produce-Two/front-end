@@ -8,7 +8,7 @@ const FarmItems = supply => {
     return (
         <div>
             <p>Inventory</p>
-            <ul>
+            {/* <ul>
             {supply && supply.map(supplys => (
                 <li key={supplys.supply} onClick={() => editSupply(supply)}>
                     <span>
@@ -41,7 +41,7 @@ const FarmItems = supply => {
                     <button onClick={() => setEditing(false)}>cancel</button>
                 </div>
             </form> 
-            )}
+            )} */}
         </div>
     )
 };

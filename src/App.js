@@ -1,9 +1,9 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {connect} from 'react'
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import {connect} from 'react-redux'; 
 import './App.css';
-
+import {fetchSupplys} from './actions';
 import PrivateRoute from './Utils/PrivateRoute';
 import FormikSigninForm from "./Components/FarmerLogin";
 import FarmerProfile from './Components/FarmerProfile';
@@ -14,22 +14,26 @@ import "./App.css";
 
 
 
-function App() {
+function App(props) {
   
+  useEffect(() => {
+    props.fetchSupplys()
+  }, [])
   return (
-
     <Router>
       <div className="App">
-        <Switch>
-          <Route exact path="/" component={FormikSigninForm} />
+
+        
+          <Route exact path="/login" component={FormikSigninForm} />
           <PrivateRoute exact path="/FarmerProfile" component={FarmerProfile} />
-        </Switch>
+
       </div>
     </Router>
-    
-
-
   );
 }
 
-export default App;
+const mapStateToProps = () => {
+  return {}
+}
+
+export default connect(mapStateToProps, {fetchSupplys})(App);
