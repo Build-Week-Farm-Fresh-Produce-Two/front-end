@@ -1,15 +1,15 @@
 import React from "react";
-import { fetchSupplys, editSupply } from '../actions';
+import { fetchSupplys } from '../actions';
 import { connect } from 'react-redux';
+
+
 
 
 class Inventory extends React.Component {
     componentDidMount() {
         this.props.fetchSupplys();
-        this.props.editSupply();
         }
     
-
     render() { 
         return ( 
             <div>
@@ -24,10 +24,9 @@ class Inventory extends React.Component {
                             <p>Weight: {inventory.measurementType}</p>
                             <p>Quantity: {inventory.quantity}</p>
                             <p>Price: ${inventory.price}</p>
-                            <button onClick={editSupply(inventory)}>Edit</button>
                         </div>
-                    )
-                },[])
+                        )
+                    },[]) 
                 }
             </div>
         );
@@ -36,8 +35,9 @@ class Inventory extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        supply: state.supply
+        supply: state.supply,
+        
     }
 }
 
-export default connect(mapStateToProps, {fetchSupplys, editSupply})(Inventory);
+export default connect(mapStateToProps, {fetchSupplys})(Inventory);

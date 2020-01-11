@@ -1,12 +1,12 @@
 import { LOADING_SUPPLYS, SUPPLYS_LOADED, LOGGED_IN, ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../actions/index";
 
 const initialState = {
+    id: '',
     supplyId: '',
     supply: [],
     mySupplys: [],
     dataLoading:false,
     error: ''
-    
 };
 
 const reducer = ( state = initialState, action ) => {
@@ -50,15 +50,13 @@ const reducer = ( state = initialState, action ) => {
                 error: ''
             }
 
-        case EDIT_ITEM:
+        case "UPDATE_PRICE":
             return {
-                mySupplys: [action.payload],
-                supply: state.supply.map(supplys => supplys.id === action.payload.id ? action.payload : supplys),
-                error: ''
+                ...state,
             }
 
         default:
             return state;
-    }
+        }
 }
 export default reducer;

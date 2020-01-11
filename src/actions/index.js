@@ -10,7 +10,7 @@ export const EDIT_ITEM = "EDIT_ITEM";
 
 
 export const fetchSupplys = () => dispatch => {
-    dispatch({ type: LOADING_SUPPLYS })
+    // dispatch({ type: LOADING_SUPPLYS })
     axiosWithAuth()
         .get("api/supply/")
         .then(response => {
@@ -22,59 +22,25 @@ export const fetchSupplys = () => dispatch => {
         })
 }
 
-export const sendLogin = (credentials, history) => dispatch => {
-    if(credentials.username === '' || credentials.password === '') {
-        alert("username and/or password may not be blank")
-    } else {
-        axiosWithAuth()
-            .post("api/login", credentials)
-            .then(response => {
-                console.log('login successful:', response);
-                localStorage.setItem('token', response.data.message);
-                dispatch({ type: LOGGED_IN, payload: response.data.user.id});
-                history.push("/FarmerProfile")
-            })
-            .catch(error => {
-                console.log('error: ', error.response.data.message)
-            })
-    }
-}
-
-export const addSupply = ( supplyID, history) => dispatch => {
+export const addSupply = ( item, history) => dispatch => {
     axiosWithAuth()
-        .post(`api/supply/${supplyID}/`)
+        .post(`api/supply/${item.id}/`)
         .then(response => {
             console.log('supply added:', response)
             dispatch({ type: ADD_ITEM, payload: response.data.message })
-            history.push("/FarmerProfile")
+            history.push(`api/supply/${item.id}`);
         })
         .catch(error => {
             console.log('error: ', error.response.data.message)
         })
 }
 
-export const deleteSupply = supplyId=> dispatch => {
+export const handleDelete = (item, history) => dispatch => {
     axiosWithAuth()
-    .delete(`api/supply/${supplyId}`)
+    .delete('api/supply/')
     .then(response => {
-        console.log("supply in deleteSupply: ", response.data.message)
-        dispatch({ type: DELETE_ITEM, payload: supplyId})
+        dispatch({type: DELETE_ITEM, payload: response.message})
+        history.push('/Inventory');
     })
-    .catch(error => {
-        console.log('error: ', error.response.data.message)
-    })
-};
-
-export const editSupply = ( supplyID, history) => dispatch => {
-    axiosWithAuth()
-        .put(`api/supply/${supplyID}`)
-        .then(response => {
-            console.log('supply edited:', response)
-            dispatch({ type: EDIT_ITEM, payload: response.data.message})
-            history.push("/FarmerProfile")
-
-        })
-        .catch(error => {
-            console.log('error: ', error.response.data.message)
-        })
+    .catch(error => console.log('error: ', error.response.message))
 }
