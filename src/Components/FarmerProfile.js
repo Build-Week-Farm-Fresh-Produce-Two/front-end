@@ -8,7 +8,7 @@ const FarmerProfile = () => {
     const [items, setItems] = useState([]);
     useEffect(() => {
         axiosWithAuth()
-        .get('api/supply/')
+        .get('api/supply')
         .then(response => setItems(response))
         .catch(error => console.log('error: ', error.response.message));
     }, []);

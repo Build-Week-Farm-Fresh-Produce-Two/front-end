@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 class Inventory extends React.Component {
     componentDidMount() {
-        this.props.fetchSupplys();
+        this.props.fetchSupplys()
         }
     
     render() { 
@@ -35,8 +35,7 @@ class Inventory extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        supply: state.supply,
-        
+        supply: state.supply
     }
 }
 

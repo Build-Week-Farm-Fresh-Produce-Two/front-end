@@ -43,13 +43,13 @@ const reducer = ( state = initialState, action ) => {
             };
 
         case DELETE_ITEM: 
-            return {
-                ...state,
-                supply: state.supply.filter(supplys => supplys.supplyId !== action.payload),
-                mySupplys: [],
-                error: ''
-            }
-
+            let RemovedItem = state.supply.filter(item => {
+                if (item.id !== action.payload) {
+                    return item;
+                }
+            })
+            return {...state, supply: RemovedItem};
+            
         case "UPDATE_PRICE":
             return {
                 ...state,

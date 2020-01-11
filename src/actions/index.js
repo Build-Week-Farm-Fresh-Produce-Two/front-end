@@ -14,33 +14,38 @@ export const fetchSupplys = () => dispatch => {
     axiosWithAuth()
         .get("api/supply/")
         .then(response => {
-            console.log('loading:', response);
-            dispatch({ type: SUPPLYS_LOADED, payload: response.data})
+            dispatch({ type: SUPPLYS_LOADED, payload: response})
         })
         .catch(error => {
-            console.log('error: ', error.response.data.message)
+            console.log('error: ', error)
         })
 }
 
-export const addSupply = ( item, history) => dispatch => {
+export const addSupply = ( supply, history) => dispatch => {
     axiosWithAuth()
-        .post(`api/supply/${item.id}/`)
+        .post('api/supply/:id')
         .then(response => {
             console.log('supply added:', response)
             dispatch({ type: ADD_ITEM, payload: response.data.message })
-            history.push(`api/supply/${item.id}`);
+            history.push('api/supply/:id');
         })
         .catch(error => {
             console.log('error: ', error.response.data.message)
         })
 }
 
-export const handleDelete = (item, history) => dispatch => {
+export const handleDelete = (history) => dispatch => {
     axiosWithAuth()
-    .delete('api/supply/')
+    .delete('api/supply/:id')
     .then(response => {
         dispatch({type: DELETE_ITEM, payload: response.message})
         history.push('/Inventory');
     })
     .catch(error => console.log('error: ', error.response.message))
+}
+
+export const updateSupply = () => {
+    axiosWithAuth()
+    .put('api/supply/:id')
+    .then()
 }

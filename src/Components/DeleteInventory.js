@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 import { handleDelete, fetchSupplys } from '../actions';
 import {connect} from 'react-redux';
 
@@ -29,6 +30,6 @@ const mapStateToProps = state => {
         supply: state.supply,
     }
 }
-export default connect(mapStateToProps, {handleDelete}(DeleteInventory));
+export default connect(mapStateToProps, {handleDelete, fetchSupplys})(DeleteInventory);
 
 
