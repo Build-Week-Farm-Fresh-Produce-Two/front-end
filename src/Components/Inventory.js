@@ -11,15 +11,19 @@ class Inventory extends React.Component {
         }
     
     render() { 
-        return ( 
+        console.log('supply: ', this.props.supply)
+        if (this.props.supply.length > 0) {
+           return ( 
             <div>
                 {this.props.supply.map(inventory => {
+
                     return (
                         <div className="inventory-card">
                             <div className="produce-img">
                             <img width="50%" src={inventory.imageURL} alt="farm produce"/>
                             </div>
                             <h1>Name: {inventory.name}</h1>
+                            <p>Id: {inventory.id}</p>
                             <p>Description: {inventory.description}</p>
                             <p>Weight: {inventory.measurementType}</p>
                             <p>Quantity: {inventory.quantity}</p>
@@ -30,6 +34,9 @@ class Inventory extends React.Component {
                 }
             </div>
         );
+        }
+        else {return (<h1>Loading Supply...</h1>)}
+        
     }
 }
 

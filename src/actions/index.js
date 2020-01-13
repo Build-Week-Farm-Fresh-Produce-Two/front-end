@@ -14,7 +14,7 @@ export const fetchSupplys = () => dispatch => {
     axiosWithAuth()
         .get("api/supply/")
         .then(response => {
-            dispatch({ type: SUPPLYS_LOADED, payload: response})
+            dispatch({ type: SUPPLYS_LOADED, payload: response.data})
         })
         .catch(error => {
             console.log('error: ', error)
@@ -34,14 +34,16 @@ export const addSupply = ( supply, history) => dispatch => {
         })
 }
 
-export const handleDelete = (history) => dispatch => {
+export const handleDelete = ( id, password) => dispatch => {
+    console.log('handleDelete: ', id, password)
     axiosWithAuth()
-    .delete('api/supply/:id')
+    .delete(`api/supply/${id}`, {data:{password}})
     .then(response => {
-        dispatch({type: DELETE_ITEM, payload: response.message})
-        history.push('/Inventory');
+        console.log('handleDelete: ', response)
+        dispatch({type: DELETE_ITEM})
+        // history.push('/Inventory');
     })
-    .catch(error => console.log('error: ', error.response.message))
+    .catch(error => console.log('error: ', error.response))
 }
 
 export const updateSupply = () => {

@@ -1,4 +1,4 @@
-import { LOADING_SUPPLYS, SUPPLYS_LOADED, LOGGED_IN, ADD_ITEM, DELETE_ITEM, EDIT_ITEM } from "../actions/index";
+import { LOADING_SUPPLYS, SUPPLYS_LOADED, LOGGED_IN, ADD_ITEM, DELETE_ITEM } from "../actions/index";
 
 const initialState = {
     id: '',
@@ -43,12 +43,13 @@ const reducer = ( state = initialState, action ) => {
             };
 
         case DELETE_ITEM: 
-            let RemovedItem = state.supply.filter(item => {
-                if (item.id !== action.payload) {
-                    return item;
-                }
-            })
-            return {...state, supply: RemovedItem};
+            // let RemovedItem = state.supply.filter(item => {
+            //     if (item.id !== action.payload) {
+            //         return item;
+            //     }
+            // })
+            // return {...state, supply: RemovedItem};
+            return {...state, supply: [...state.supply]}
             
         case "UPDATE_PRICE":
             return {
