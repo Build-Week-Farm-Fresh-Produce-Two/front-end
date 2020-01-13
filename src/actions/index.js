@@ -6,7 +6,7 @@ export const SUPPLYS_LOADED = "SUPPLYS_LOADED";
 export const LOGGED_IN = "LOGGED_IN";
 export const ADD_ITEM = "ADD_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
-export const EDIT_ITEM = "EDIT_ITEM";
+export const UPDATE_ITEM = "UPDATE_ITEM";
 
 
 export const fetchSupplys = () => dispatch => {
@@ -21,33 +21,40 @@ export const fetchSupplys = () => dispatch => {
         })
 }
 
-export const addSupply = ( supply, history) => dispatch => {
+export const addSupply = (newSupply) => dispatch => {
+    console.log('is addSupply working: ')
     axiosWithAuth()
-        .post('api/supply/:id')
+        .post('api/supply/', newSupply)
         .then(response => {
             console.log('supply added:', response)
-            dispatch({ type: ADD_ITEM, payload: response.data.message })
-            history.push('api/supply/:id');
+            
+            dispatch({ type: ADD_ITEM, payload: response.data})
+            // history.push(`api/supply/${id}`);
         })
         .catch(error => {
-            console.log('error: ', error.response.data.message)
+            console.log('addSupply error: ', error.response.data.message)
         })
 }
 
-export const handleDelete = ( id, password) => dispatch => {
-    console.log('handleDelete: ', id, password)
+export const deleteSupply = ( id, password) => dispatch => {
+    console.log('deleteSupply: ', id, password)
     axiosWithAuth()
     .delete(`api/supply/${id}`, {data:{password}})
     .then(response => {
-        console.log('handleDelete: ', response)
+        console.log('deleteSupply: ', response)
         dispatch({type: DELETE_ITEM})
         // history.push('/Inventory');
     })
     .catch(error => console.log('error: ', error.response))
 }
 
-export const updateSupply = () => {
+export const updateSupply = (newUpdate) => dispatch => {
+    console.log('updateSupply: ')
     axiosWithAuth()
-    .put('api/supply/:id')
-    .then()
+    .put(`api/supply/${newUpdate.supplyID}`, newUpdate )
+    .then(response => {
+        console.log('updateSupply: ', response)
+        dispatch({type: UPDATE_ITEM})
+    })
+    .catch(error => console.log('error: ', error.response))
 }

@@ -1,9 +1,8 @@
 import React from 'react';
-import Select from 'react-select';
-import { handleDelete, fetchSupplys } from '../actions';
+import {deleteSupply} from '../actions';
 import {connect} from 'react-redux';
 
-import AsyncSelect from 'react-select/async';
+
 
 class DeleteInventory extends React.Component {
     // componentDidMount() {
@@ -29,7 +28,7 @@ class DeleteInventory extends React.Component {
 
     submitHandler(e) {
         e.preventDefault();
-        this.props.handleDelete(this.state.id, this.state.password)
+        this.props.deleteSupply(this.state.id, this.state.password)
     }
     
     render() { 
@@ -37,10 +36,9 @@ class DeleteInventory extends React.Component {
             <div>
                 <h2>Delete Inventory Items</h2>
                 <form onSubmit={this.submitHandler}>
-                    <AsyncSelect loadOptions={this.props.supply} />
                     <input 
                         type="text"
-                        placeholder="ID"
+                        placeholder="Id"
                         name="id"
                         onChange={this.handleChange}
                         value={this.state.id}
@@ -63,6 +61,6 @@ const mapStateToProps = state => {
         supply: state.supply,
     }
 }
-export default connect(mapStateToProps, {handleDelete, fetchSupplys})(DeleteInventory);
+export default connect(mapStateToProps, {deleteSupply})(DeleteInventory);
 
 

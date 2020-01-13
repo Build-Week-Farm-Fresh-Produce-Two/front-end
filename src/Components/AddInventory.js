@@ -1,99 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { axiosWithAuth } from '../Utils/axiosWithAuth';
+import React from 'react';
+import { addSupply } from '../actions';
+import { connect } from 'react-redux';
 
-const initialItem = {
-    farmID: "",
-    productID: "",
-    measurementType: "",
-    quantity: "",
-    price: ""
-}
-
-const AddInventory = props => {
-    const [item, setItem] = useState(initialItem);
-
-    // useEffect(() => {
-    //     const itemToEdit = props.items.find(
-    //         e => `${item.id}` === props.match.params.id
-    //     );
-    //     console.log(props.items, itemToEdit);
-    //     if (itemToEdit) {
-    //         setItem(itemToEdit);
-    //     }
-    // }, [props.items, props.match.params.id]);
-
-    const changeHandler = e => {
-        e.persist();
-        let value = e.target.value;
-        if (e.target.name === 'price') {
-            value = parseInt(value, 10);
+class AddInventory extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            farmID: "",
+            productID: "",
+            measurementType: "",
+            quantity: "",
+            price: ""
         }
-        setItem({
-            ...item,
-            [e.target.name]: value
-        });
-    };
 
-    
-    const handleSubmit = ev => {
-        ev.preventDefault();
-        axiosWithAuth()
-        .post(`api/supply/${item.id}`)
-        .then(response => {
-            props.updateItems(response.data);
-            props.history.push(`api/supply/${item.id}`);
-        })
-        .catch(error => console.log('error: ', error.response.message))
+        this.handleChange = this.handleChange.bind(this)
+        this.submitHandler = this.submitHandler.bind(this)
     }
 
-    return (
-        <div>
+    handleChange(e) {
+        e.preventDefault();
+        this.setState({...this.state, [e.target.name]: e.target.value})
+    }
+
+    submitHandler(e) {
+        e.preventDefault();
+        this.props.addSupply(
+            this.state
+            )
+        console.log(this.state)
+    }
+
+    render() { 
+        return ( 
+            <div>
             <h2>Add Inventory</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={this.submitHandler}>
                     <input
                     type="text"
                     placeholder="Farm ID"
                     name="farmID"
-                    value={item.farmID}
-                    onChange={changeHandler}
+                    value={this.state.farmID}
+                    onChange={this.handleChange}
                     />
                     <input
                     type="text"
                     placeholder="Product ID"
                     name="productID"
-                    value={item.productID}
-                    onChange={changeHandler}
+                    value={this.state.productID}
+                    onChange={this.handleChange}
                     />
                     <input
                     type="text"
                     placeholder="Weight"
                     name="measurementType"
-                    value={item.measurementType}
-                    onChange={changeHandler}
+                    value={this.state.measurementType}
+                    onChange={this.handleChange}
                     />
                     <input
                     type="text"
                     placeholder="Quantity"
                     name="quantity"
-                    value={item.quantity}
-                    onChange={changeHandler}
+                    value={this.state.quantity}
+                    onChange={this.handleChange}
                     />
                     <input
                     type="text"
                     placeholder="Price"
                     name="price"
-                    value={item.price}
-                    onChange={changeHandler}
-                    />
-                    <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
+                    value={this.state.price}
+                    onChange={this.handleChange}
                     />
                     <button type="submit">Add</button>
-            </form>
-        </div>
-    )
+                </form>
+            </div>
+            );
+        }
 }
 
-export default AddInventory;
+const mapStateToProps = state => {
+    return {
+        supply: state.supply,
+    }
+}
+
+export default connect(mapStateToProps, {addSupply})(AddInventory);

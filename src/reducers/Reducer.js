@@ -1,4 +1,4 @@
-import { LOADING_SUPPLYS, SUPPLYS_LOADED, LOGGED_IN, ADD_ITEM, DELETE_ITEM } from "../actions/index";
+import { LOADING_SUPPLYS, SUPPLYS_LOADED, LOGGED_IN, ADD_ITEM, DELETE_ITEM, UPDATE_ITEM } from "../actions/index";
 
 const initialState = {
     id: '',
@@ -38,8 +38,6 @@ const reducer = ( state = initialState, action ) => {
             return{
                 ...state,
                 supply: [...state.supply, action.payload],
-                mySupplys: [...state.mySupplys, action.payload],
-                error: ''
             };
 
         case DELETE_ITEM: 
@@ -51,9 +49,11 @@ const reducer = ( state = initialState, action ) => {
             // return {...state, supply: RemovedItem};
             return {...state, supply: [...state.supply]}
             
-        case "UPDATE_PRICE":
+        case UPDATE_ITEM:
             return {
-                ...state,
+                ...state, 
+                id: action.payload,
+                supply: [...state.supply],
             }
 
         default:

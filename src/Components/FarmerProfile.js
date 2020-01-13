@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Inventory from './Inventory';
-import UpdateInventory from './AddInventory';
-import { axiosWithAuth } from '../Utils/axiosWithAuth';
+import AddInventory from './AddInventory';
 import DeleteInventory from './DeleteInventory';
+import UpdateInventory from './UpdateInventory';
+
+import {axiosWithAuth} from '../Utils/axiosWithAuth';
 
 const FarmerProfile = () => {
     const [items, setItems] = useState([]);
@@ -17,7 +19,8 @@ const FarmerProfile = () => {
         <div>
             <h1>Your Farm Produce</h1>
             <div>
-                <UpdateInventory items={items} updateItems={setItems}/>
+                <AddInventory />
+                <UpdateInventory />
                 <DeleteInventory />
             </div>
             <Inventory />

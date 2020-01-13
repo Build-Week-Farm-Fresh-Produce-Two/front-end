@@ -11,9 +11,9 @@ class Inventory extends React.Component {
         }
     
     render() { 
-        console.log('supply: ', this.props.supply)
+        console.log('Inventory component supply render: ', this.props.supply)
         if (this.props.supply.length > 0) {
-           return ( 
+            return ( 
             <div>
                 {this.props.supply.map(inventory => {
 
@@ -28,6 +28,7 @@ class Inventory extends React.Component {
                             <p>Weight: {inventory.measurementType}</p>
                             <p>Quantity: {inventory.quantity}</p>
                             <p>Price: ${inventory.price}</p>
+                            <p>Product id: {inventory.productID}</p>
                         </div>
                         )
                     },[]) 
